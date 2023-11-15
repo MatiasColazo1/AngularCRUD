@@ -1,20 +1,35 @@
 <nav class="navbar manar-dark bg-primary">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand titulo" href="#">
     CRUD con Angular
   </a>
 </nav>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 mt-4">
       <ul class="list-group">
-
+        <li *ngFor="let empleado of empleadoArray" (click)="editar(empleado)" 
+        [class.active]="empleado == selectEmpleado" class="list-group-item list-group-item-action">
+         <span class="badge text-bg-primary">{{ empleado.id }}</span> {{ empleado.nombre }} - {{ empleado.pais }}
+        </li>
       </ul>
       <div class="card mt-4">
         <div class="card-body">
           <div class="card-title">
             Insertar nuevo empleado
           </div>
+          <div class="form-group mb-3">
+            <input type="text" [(ngModel)]="selectEmpleado.nombre" placeholder="Ingresa el nombre" class="form-control">
+          </div>
+          <div class="form-group mb-2">
+            <input type="text" [(ngModel)]="selectEmpleado.pais" placeholder="Ingresa el pais" class="form-control">
+          </div>
+          <button (click)="addOrEdit()" class="btn btn-primary">
+            Enviar
+          </button>
+          <button *ngIf="selectEmpleado.id !== 0" (click)="eliminar()" class="btn btn-danger">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
